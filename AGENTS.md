@@ -11,9 +11,7 @@
 - Унаследованную игровую базу сохранять. Не делать общий rewrite и не переносить
   несвязанные механики из других прототипов без отдельной задачи.
 - Целевые содержательные надстройки поверх базы: **Келлер / Глубокий гипер** и
-  **Smart Diplomacy** по `docs/CANON_GODOT_ANDROID_KELLER_DIPLOMACY.md`.
-- Godot/Android APK — только лёгкий launcher/bootstrap. Запрещено превращать его
-  в контейнер всей игры/модов: крупный контент загружается и обновляется отдельно.
+  **Smart Diplomacy** по `docs/CANON_KELLER_SMART_DIPLOMACY.md`.
 - `ChildrenOfEltanLauncher.exe` остаётся Windows native-bridge для существующих
   DLL-хуков; SR Mods Launcher может обслуживать общие КР2-профили/установку.
 - Любая задача по Keller/Diplomacy должна быть локальной и проверяемой; всё
