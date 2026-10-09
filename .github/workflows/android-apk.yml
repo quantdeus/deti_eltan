@@ -59,6 +59,21 @@ jobs:
           export/android/debug_keystore_pass = "android"
           EOF
 
+      - name: Diagnose Android export setup
+        run: |
+          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT ANDROID_HOME=$ANDROID_HOME JAVA_HOME=$JAVA_HOME"
+          ls "$ANDROID_SDK_ROOT" || true
+          ls "$ANDROID_SDK_ROOT/build-tools" "$ANDROID_SDK_ROOT/platforms" "$ANDROID_SDK_ROOT/platform-tools" || true
+          "$JAVA_HOME/bin/java" -version 2>&1 || true
+          echo "--- export templates:"
+          ls -la "$HOME/.local/share/godot/export_templates/4.3.stable" | head -40 || true
+          echo "--- keystore:"
+          ls -la "$HOME/.android" || true
+          echo "--- editor settings:"
+          cat "$HOME/.config/godot/editor_settings-4.tres" || true
+          echo "--- godot version:"
+          godot --version || true
+
       - name: Validate Godot project
         working-directory: mobile_godot
         run: godot --headless --editor --quit
@@ -68,7 +83,7 @@ jobs:
         run: |
           set -o pipefail
           mkdir -p build
-          godot --headless --path . --export-debug "Android" build/deti_eltan_mobile_debug.apk 2>&1 | tee build/export.log
+          godot --headless --verbose --path . --export-debug "Android" build/deti_eltan_mobile_debug.apk 2>&1 | tee build/export.log
 
       - name: Upload export diagnostics
         if: always()
